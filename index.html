@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuneSalon AI — Pitch Deck v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-dark: #2d2621;
+    --bg-mid: #3a322c;
+    --bg-card: #4a4039;
+    --border: #5c4d3f;
+    --copper: #c0a080;
+    --copper-dark: #8d6e4c;
+    --text-light: #ece5d8;
+    --text-muted: #b8a88e;
+    --text-dim: #8a7d6e;
+    --red-soft: #c47070;
+    --green-soft: #7dab7d;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: #1a1614;
+    color: var(--text-light);
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide.active { display: flex; }
+
+  .slide-counter {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--text-dim);
+    z-index: 100;
+  }
+
+  .nav-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 30px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    opacity: 0.5;
+    z-index: 100;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--copper);
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--copper);
+  }
+
+  p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .accent { color: var(--copper); }
+
+  /* ── SLIDE 1: Title ── */
+  .slide-title { background: var(--bg-dark); }
+
+  .title-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    object-fit: contain;
+  }
+
+  .title-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .title-headline { font-size: 56px; text-align: center; margin-bottom: 20px; }
+  .title-sub { font-size: 22px; text-align: center; max-width: 600px; }
+
+  .title-url {
+    position: absolute;
+    bottom: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--text-dim);
+  }
+
+  /* ── SLIDE 2: Frontier Adoption ── */
+  .slide-frontier { background: var(--bg-dark); justify-content: center; padding: 60px 80px; gap: 40px; }
+
+  .frontier-logos {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1080px;
+    margin-top: 10px;
+  }
+
+  .frontier-logo-box {
+    flex: 1;
+    background: var(--bg-mid);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 34px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .frontier-logo-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .frontier-logo-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .frontier-logo-icon img { width: 80%; height: 80%; object-fit: contain; display: block; }
+
+  .frontier-logo-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--text-light);
+  }
+
+  .frontier-logo-stat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--copper);
+    margin-top: 2px;
+  }
+
+  .frontier-usecase-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .frontier-usecase-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .frontier-usecase-list li {
+    font-size: 15px;
+    color: var(--text-muted);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .frontier-usecase-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+  }
+
+  .frontier-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .frontier-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .frontier-bottom-small {
+    font-size: 18px;
+    color: var(--text-muted);
+  }
+
+  .frontier-bottom-big {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 32px;
+    color: var(--copper);
+  }
+
+  /* ── SLIDE 3: Cracks (merged problems) ── */
+  .slide-cracks { background: var(--bg-dark); padding: 50px 70px; }
+
+  .cracks-headline { font-size: 42px; text-align: center; margin-bottom: 6px; }
+  .cracks-headline em { font-style: normal; color: var(--copper); }
+
+  .cracks-sub {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 34px;
+    max-width: 760px;
+  }
+
+  .cracks-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .cracks-row {
+    display: flex;
+    gap: 26px;
+    background: var(--bg-dark);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    align-items: center;
+  }
+
+  .cracks-row-img {
+    flex: 0 0 42%;
+    max-width: 42%;
+    height: 160px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .cracks-row-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .cracks-row-text { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+  .cracks-row-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--copper);
+  }
+
+  .cracks-row-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--text-light);
+    line-height: 1.3;
+  }
+
+  .cracks-row-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .cracks-row-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  /* ── SLIDE 5: Rent vs Own ── */
+  .slide-answer { background: var(--bg-dark); }
+  .answer-headline { font-size: 44px; text-align: center; margin-bottom: 14px; max-width: 900px; }
+  .answer-headline em { font-style: normal; color: var(--copper); }
+  .answer-sub { font-size: 18px; text-align: center; margin-bottom: 50px; max-width: 700px; }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 960px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .compare-col {
+    background: var(--bg-mid);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .compare-logos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #fff;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .compare-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .compare-col.highlight {
+    border-color: var(--copper);
+    background: linear-gradient(180deg, var(--bg-mid), var(--bg-card));
+  }
+
+  .compare-col h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .compare-col.highlight h3 { color: var(--copper); }
+  .compare-col:not(.highlight) h3 { color: var(--text-dim); }
+
+  .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .compare-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .compare-list li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  .compare-col:not(.highlight) .compare-list li::before { background: var(--red-soft); }
+  .compare-col.highlight .compare-list li::before { background: var(--copper); }
+
+  .answer-tagline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .answer-tagline strong { color: var(--copper); font-style: normal; }
+
+  /* ── SLIDE 6: Benchmark ── */
+  .slide-benchmark { background: var(--bg-dark); padding: 40px 60px; }
+  .benchmark-v2-title { font-size: 40px; margin-bottom: 10px; text-align: center; }
+  .benchmark-v2-sub { font-size: 17px; margin-bottom: 36px; text-align: center; max-width: 760px; }
+
+  .benchmark-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 20px;
+    max-width: 1320px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .benchmark-panel.featured {
+    border-color: var(--copper);
+    background: linear-gradient(180deg, var(--bg-dark), #3d2f23);
+  }
+
+  .benchmark-panel.featured .benchmark-panel-name { color: var(--copper); }
+
+  .benchmark-panel {
+    background: var(--bg-dark);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .benchmark-panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .benchmark-panel-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--copper);
+  }
+
+  .benchmark-panel-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .benchmark-panel-img {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .benchmark-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--bg-card);
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .benchmark-panel-note {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .benchmark-v2-kicker {
+    max-width: 900px;
+    text-align: center;
+    font-size: 17px;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .benchmark-v2-kicker strong { color: var(--copper); }
+
+  /* ── SLIDES 7-9: Use Cases ── */
+  .slide-usecase { background: var(--bg-dark); padding: 40px 60px; }
+
+  .usecase-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .usecase-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--bg-dark);
+    background: var(--copper);
+    border-radius: 8px;
+    padding: 6px 14px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .usecase-title { font-size: 34px; }
+
+  .usecase-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 420px;
+  }
+
+  .usecase-img-wrap {
+    flex: 0 0 58%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 800px;
+    align-self: center;
+  }
+
+  .usecase-img-card {
+    flex: 1 1 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    background: var(--bg-mid);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .usecase-img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .usecase-img-placeholder {
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .usecase-points {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .usecase-point {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .usecase-point-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--copper);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .usecase-point p {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ── SLIDE 10: Current Workflow (Competitive) ── */
+  .slide-current { background: var(--bg-dark); padding: 40px 60px; }
+  .current-headline { font-size: 38px; text-align: center; margin-bottom: 40px; max-width: 900px; }
+  .current-headline em { font-style: normal; color: var(--copper); }
+
+  .current-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 34px;
+  }
+
+  .current-tool {
+    flex: 1;
+    background: var(--bg-dark);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .current-tool-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .current-tool-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .current-tool-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .current-tool-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-light);
+  }
+
+  .current-tool-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--copper);
+    letter-spacing: 0.5px;
+  }
+
+  .current-tool-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .current-tool-list li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .current-tool-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--green-soft);
+    font-weight: 700;
+  }
+
+  .current-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 6px;
+  }
+
+  .current-arrow-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--copper);
+    letter-spacing: 1px;
+  }
+
+  .current-arrow svg {
+    width: 44px;
+    height: 30px;
+  }
+
+  .current-missing {
+    background: var(--bg-dark);
+    border: 1.5px solid var(--red-soft);
+    border-radius: 14px;
+    padding: 20px 30px;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .current-missing-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--red-soft);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .current-missing-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 30px;
+  }
+
+  .current-missing-list li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .current-missing-list li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: var(--red-soft);
+    font-weight: 700;
+  }
+
+  /* ── SLIDE 11: Meet TuneSalon ── */
+  .slide-meet { background: var(--bg-dark); }
+
+  .meet-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: contain;
+    margin-bottom: 16px;
+  }
+
+  .meet-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .meet-headline { font-size: 44px; text-align: center; margin-bottom: 50px; max-width: 900px; }
+  .meet-headline em { font-style: normal; color: var(--copper); }
+
+  .meet-cards {
+    display: flex;
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .meet-card {
+    flex: 1;
+    background: var(--bg-mid);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .meet-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-dark);
+    border: 1.5px solid var(--copper-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .meet-card-icon svg { width: 24px; height: 24px; }
+
+  .meet-card h3 { font-size: 18px; color: var(--text-light); }
+  .meet-card p { font-size: 14px; }
+
+  .meet-tagline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .meet-tagline strong { color: var(--copper); }
+
+  /* ── SLIDES 12-15: Workflow Screenshots ── */
+  .slide-workflow { background: var(--bg-dark); padding: 40px 60px; }
+
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1240px;
+  }
+
+  .workflow-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--bg-dark);
+    background: var(--copper);
+    border-radius: 8px;
+    padding: 6px 16px;
+    white-space: nowrap;
+  }
+
+  .workflow-title { font-size: 34px; }
+
+  .workflow-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    max-width: 1240px;
+    min-height: 600px;
+  }
+
+  .workflow-img-wrap {
+    flex: 0 0 66%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    background: var(--bg-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 560px;
+  }
+
+  .workflow-img-wrap img { width: 100%; display: block; }
+
+  .workflow-points {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .workflow-point { display: flex; gap: 14px; align-items: flex-start; }
+
+  .workflow-point-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--bg-mid);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .workflow-point-icon svg { width: 18px; height: 18px; }
+
+  .workflow-point h3 { font-size: 16px; color: var(--text-light); margin-bottom: 4px; }
+  .workflow-point p { font-size: 14px; line-height: 1.5; }
+
+  /* ── SLIDE 16: What We're Looking For ── */
+  .slide-ask { background: var(--bg-dark); }
+  .ask-headline { font-size: 42px; text-align: center; margin-bottom: 50px; }
+  .ask-headline em { font-style: normal; color: var(--copper); }
+
+  .ask-cards {
+    display: flex;
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .ask-card {
+    flex: 1;
+    background: var(--bg-dark);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ask-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-mid);
+    border: 2px solid var(--copper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ask-card-icon svg { width: 22px; height: 22px; }
+
+  .ask-card h3 { font-size: 20px; color: var(--copper); }
+  .ask-card p { font-size: 15px; line-height: 1.5; }
+
+  .ask-footer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+  }
+
+  .ask-footer strong { color: var(--copper); font-style: normal; }
+
+  /* ── SLIDE 17: Closer ── */
+  .slide-closer {
+    background: var(--bg-dark);
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    padding: 60px 80px;
+    gap: 60px;
+  }
+
+  .closer-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    max-width: 560px;
+  }
+
+  .closer-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 560px;
+  }
+
+  .closer-video {
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    background: #000;
+    object-fit: contain;
+  }
+
+  .closer-logo {
+    width: 84px;
+    height: 84px;
+    border-radius: 16px;
+    object-fit: contain;
+  }
+
+  .closer-headline { font-size: 46px; text-align: left; line-height: 1.2; }
+  .closer-sub { font-size: 18px; text-align: left; }
+
+  .closer-qr-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .closer-qr-wrap {
+    width: 130px;
+    height: 130px;
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .closer-qr-wrap svg { width: 100%; height: 100%; }
+
+  .closer-qr-text { display: flex; flex-direction: column; gap: 4px; }
+
+  .closer-tryfree {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--copper);
+  }
+
+  .closer-url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    color: var(--copper);
+  }
+
+  /* ── PRINT / PDF STYLES ── */
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  @media print {
+    body {
+      overflow: visible;
+      background: none;
+    }
+
+    .slide {
+      display: flex !important;
+      width: 297mm;
+      height: 210mm;
+      padding: 15mm 20mm;
+      page-break-after: always;
+      page-break-inside: avoid;
+      break-after: page;
+      break-inside: avoid;
+      position: relative;
+    }
+
+    .slide:last-of-type {
+      page-break-after: auto;
+    }
+
+    .slide-counter,
+    .nav-hint {
+      display: none !important;
+    }
+
+    .title-url, .closer-video-hint {
+      bottom: 12mm;
+    }
+
+    .frontier-footer {
+      bottom: 14mm;
+    }
+
+    .usecase-img-wrap, .workflow-img-wrap {
+      min-height: auto;
+    }
+
+    .usecase-layout, .workflow-layout {
+      min-height: auto;
+    }
+
+    .usecase-img-wrap img, .workflow-img-wrap img {
+      max-height: 150mm;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .closer-qr-wrap {
+      width: 130px;
+      height: 130px;
+    }
+
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Opener -->
+<div class="slide slide-title active" id="slide-1">
+  <img src="logo.png" alt="TuneSalon AI" class="title-logo">
+  <div class="title-brand">TuneSalon AI</div>
+  <h1 class="title-headline">Custom AI, <span class="accent">Made Simple</span></h1>
+  <p class="title-sub">Build your own AI. No coding, no GPU, no setup.</p>
+  <div class="title-url">tunesalonai.com</div>
+</div>
+
+<!-- SLIDE 2: Frontier Adoption -->
+<div class="slide slide-frontier" id="slide-2">
+  <div class="frontier-logos">
+    <div class="frontier-logo-box">
+      <div class="frontier-logo-head">
+        <div class="frontier-logo-icon"><img src="openai logo.jpg" alt="OpenAI"></div>
+        <div>
+          <div class="frontier-logo-name">ChatGPT</div>
+          <div class="frontier-logo-stat">900M weekly users (Feb 2026)</div>
+          <div class="frontier-source">Source: TechCrunch · OpenAI announcement</div>
+        </div>
+      </div>
+      <div class="frontier-usecase-label">Used for</div>
+      <ul class="frontier-usecase-list">
+        <li>Daily chat &amp; research</li>
+        <li>Image generation</li>
+        <li>Code writing &amp; debugging</li>
+        <li>Emotional companion</li>
+        <li>Creative writing</li>
+        <li>Personal tutoring</li>
+      </ul>
+    </div>
+
+    <div class="frontier-logo-box">
+      <div class="frontier-logo-head">
+        <div class="frontier-logo-icon"><img src="anthropic logo.jpg" alt="Anthropic"></div>
+        <div>
+          <div class="frontier-logo-name">Claude</div>
+          <div class="frontier-logo-stat">70% of Fortune 100 · 8 of Fortune 10</div>
+          <div class="frontier-source">Source: TechCrunch · March 2026</div>
+        </div>
+      </div>
+      <div class="frontier-usecase-label">Used for</div>
+      <ul class="frontier-usecase-list">
+        <li>Enterprise documentation</li>
+        <li>Coding &amp; developer tools</li>
+        <li>Long-context analysis</li>
+        <li>Regulated-industry workflows</li>
+        <li>Agentic automation</li>
+        <li>Claude Code for dev teams</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="frontier-bottom">
+    <div class="frontier-bottom-small">Everyone is using frontier AI.</div>
+    <div class="frontier-bottom-big">But there are cracks forming.</div>
+  </div>
+</div>
+
+<!-- SLIDE 3: The Cracks (merged — privacy + cost) -->
+<div class="slide slide-cracks" id="slide-3">
+  <h1 class="cracks-headline">The cracks are <em>showing.</em></h1>
+  <p class="cracks-sub">Two stories from the last few months tell the same truth.<br>You don't own what you're using.</p>
+
+  <div class="cracks-rows">
+    <div class="cracks-row">
+      <div class="cracks-row-img"><img src="anthropic article 2.png" alt="Claude chats not privileged article"></div>
+      <div class="cracks-row-text">
+        <div class="cracks-row-tag">Privacy · April 15, 2026</div>
+        <div class="cracks-row-title">A US judge ruled that a fraud defendant's AI chats with Claude are not privileged.</div>
+        <div class="cracks-row-desc">Federal Judge Jed Rakoff ruled conversations between a criminal defendant and Claude lack attorney-client privilege. Major law firms now advise clients against using public AI for legal matters.</div>
+        <div class="cracks-row-source">Source: The Next Web</div>
+      </div>
+    </div>
+
+    <div class="cracks-row">
+      <div class="cracks-row-img"><img src="anthropic article.png" alt="Anthropic pricing shift article"></div>
+      <div class="cracks-row-text">
+        <div class="cracks-row-tag">Cost · April 14, 2026</div>
+        <div class="cracks-row-title">Anthropic shifts enterprise billing to per-token pricing. The flat-fee era is over.</div>
+        <div class="cracks-row-desc">Anthropic restructured enterprise pricing to charge for Claude usage separately from seat fees at standard API rates, moving customers off flat-fee subscriptions amid compute constraints.</div>
+        <div class="cracks-row-source">Source: Implicator.ai</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: The Answer — Rent vs Own -->
+<div class="slide slide-answer" id="slide-5">
+  <h1 class="answer-headline">Rent intelligence,<br>or <em>Build your own.</em></h1>
+  <p class="answer-sub">The smartest teams aren't just using AI. They're building their own.</p>
+
+  <div class="compare-grid">
+    <div class="compare-col">
+      <h3>Frontier AI</h3>
+      <div class="compare-logos">
+        <div class="compare-logo"><img src="openai logo.jpg" alt="OpenAI"></div>
+        <div class="compare-logo"><img src="anthropic logo.jpg" alt="Anthropic"></div>
+        <div class="compare-logo"><img src="gemini logo.png" alt="Gemini"></div>
+        <div class="compare-logo"><img src="perplexity logo.jpg" alt="Perplexity"></div>
+      </div>
+      <ul class="compare-list">
+        <li>Pay per token</li>
+        <li>Your data can leak</li>
+        <li>One size fits all</li>
+        <li>Can change without warning</li>
+        <li>You don't own it</li>
+        <li>Vendor lock-in</li>
+      </ul>
+    </div>
+    <div class="compare-col highlight">
+      <h3>Open-Source + Fine-Tuning</h3>
+      <div class="compare-logos">
+        <div class="compare-logo"><img src="qwen logo.jpg" alt="Qwen"></div>
+        <div class="compare-logo"><img src="gemma logo.png" alt="Gemma"></div>
+        <div class="compare-logo"><img src="mistral logo.jpg" alt="Mistral"></div>
+        <div class="compare-logo"><img src="kimi logo.png" alt="Kimi"></div>
+      </div>
+      <ul class="compare-list">
+        <li>Free (local) or compute cost (cloud)</li>
+        <li>Your data stays yours</li>
+        <li>Built around you</li>
+        <li>Change when you want</li>
+        <li>You own it</li>
+        <li>Run anywhere, export anytime</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- SLIDE 6: Benchmark -->
+<div class="slide slide-benchmark" id="slide-6">
+  <h2 class="benchmark-v2-title">Open models are closing the gap.</h2>
+  <p class="benchmark-v2-sub">Recent open-source releases now match or beat frontier models on key benchmarks.</p>
+
+  <div class="benchmark-panels">
+    <div class="benchmark-panel">
+      <div class="benchmark-panel-header">
+        <div class="benchmark-panel-name">Qwen 3.5</div>
+        <div class="benchmark-panel-meta">Feb 2026 · Apache 2.0</div>
+      </div>
+      <img src="Qwen 3.5 benchmark.png" alt="Qwen 3.5 benchmark" class="benchmark-panel-img">
+    </div>
+
+    <div class="benchmark-panel">
+      <div class="benchmark-panel-header">
+        <div class="benchmark-panel-name">Gemma 4</div>
+        <div class="benchmark-panel-meta">Apr 2026 · Apache 2.0</div>
+      </div>
+      <img src="Gemma 4 benchmark.png" alt="Gemma 4 benchmark" class="benchmark-panel-img">
+    </div>
+
+    <div class="benchmark-panel featured">
+      <div class="benchmark-panel-header">
+        <div class="benchmark-panel-name">Fine-tuned Qwen3</div>
+        <div class="benchmark-panel-meta">Legal rewrite · Matched GPT-5.4</div>
+      </div>
+      <img src="Legal benchmark.png" alt="Fine-tuned Qwen3-32B legal benchmark" class="benchmark-panel-img">
+    </div>
+  </div>
+
+  <p class="benchmark-v2-kicker">Open models are <strong>closing in on frontier.</strong> With fine-tuning, they can surpass it on your specific task.</p>
+</div>
+
+<!-- SLIDE 7: Use Case 1 — Tone & Persona -->
+<div class="slide slide-usecase" id="slide-7">
+  <div class="usecase-header">
+    <div class="usecase-badge">USE CASE 01</div>
+    <h2 class="usecase-title">Make it speak your way.</h2>
+  </div>
+
+  <div class="usecase-layout">
+    <div class="usecase-img-wrap">
+      <div class="usecase-img-card"><img src="Himeko Chat 1.png" alt="Himeko chat example 1"></div>
+      <div class="usecase-img-card"><img src="Himeko Chat 2.png" alt="Himeko chat example 2" style="object-fit: contain; background: var(--bg-mid);"></div>
+    </div>
+    <div class="usecase-points">
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Fine-tuned to be a Japanese girl named Himeko</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Consistent voice across every response</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Specific characteristics baked in</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Works well even on small models</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Use Case 2 — RAG Citation -->
+<div class="slide slide-usecase" id="slide-8">
+  <div class="usecase-header">
+    <div class="usecase-badge">USE CASE 02</div>
+    <h2 class="usecase-title">No hallucination. Cite the source.</h2>
+  </div>
+
+  <div class="usecase-layout">
+    <div class="usecase-img-wrap">
+      <div class="usecase-img-card"><img src="RAG Chat 1.png" alt="RAG citation example 1"></div>
+      <div class="usecase-img-card"><img src="RAG Chat 2.png" alt="RAG citation example 2"></div>
+    </div>
+    <div class="usecase-points">
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Fine-tuned to cite sources from uploaded documents</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Discipline trained into the model</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Trained to remove hallucination</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Critical for professional fields</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: Use Case 3 — Internal Expert -->
+<div class="slide slide-usecase" id="slide-9">
+  <div class="usecase-header">
+    <div class="usecase-badge">USE CASE 03</div>
+    <h2 class="usecase-title">An expert on your business.</h2>
+  </div>
+
+  <div class="usecase-layout">
+    <div class="usecase-img-wrap">
+      <div class="usecase-img-card"><img src="Tunesalon Chat 1.png" alt="TuneSalon expert chat 1"></div>
+      <div class="usecase-img-card"><img src="Tunesalon Chat 2.png" alt="TuneSalon expert chat 2"></div>
+    </div>
+    <div class="usecase-points">
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Fine-tuned to know your company inside out</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Trained on internal docs</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>Great for customer support</p>
+      </div>
+      <div class="usecase-point">
+        <div class="usecase-point-dot"></div>
+        <p>No document upload needed at runtime</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Current Workflow — Competitive -->
+<div class="slide slide-current" id="slide-10">
+  <h1 class="current-headline">Today, you need two tools to do this.<br><em>But it's not perfect.</em></h1>
+
+  <div class="current-flow">
+    <div class="current-tool">
+      <div class="current-tool-header">
+        <div class="current-tool-logo"><img src="unsloth logo.jpg" alt="Unsloth"></div>
+        <div>
+          <div class="current-tool-name">Unsloth Studio</div>
+          <div class="current-tool-role">Fine-tune locally</div>
+        </div>
+      </div>
+      <ul class="current-tool-list">
+        <li>Train on your own data</li>
+        <li>Export to GGUF</li>
+        <li>No-code training + chat GUI (Beta)</li>
+      </ul>
+    </div>
+
+    <div class="current-arrow">
+      <div class="current-arrow-label">GGUF</div>
+      <svg viewBox="0 0 44 30" fill="none" stroke="#c0a080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="15" x2="38" y2="15"/>
+        <polyline points="30 7 38 15 30 23"/>
+      </svg>
+    </div>
+
+    <div class="current-tool">
+      <div class="current-tool-header">
+        <div class="current-tool-logo"><img src="lm studio logo.jpg" alt="LM Studio"></div>
+        <div>
+          <div class="current-tool-name">LM Studio</div>
+          <div class="current-tool-role">Chat with GGUF</div>
+        </div>
+      </div>
+      <ul class="current-tool-list">
+        <li>No-code chat UI</li>
+        <li>Polished local experience</li>
+        <li>Privacy preserving</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="current-missing">
+    <div class="current-missing-title">What's still missing</div>
+    <ul class="current-missing-list">
+      <li>GPU (local / cloud) setup required</li>
+      <li>Technical setup required (Python, CUDA, etc.)</li>
+      <li>You bring your dataset</li>
+      <li>GGUF export only (heavy file)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SLIDE 11: Meet TuneSalon -->
+<div class="slide slide-meet" id="slide-11">
+  <img src="logo.png" alt="TuneSalon AI" class="meet-logo">
+  <div class="meet-brand">TuneSalon AI</div>
+  <h1 class="meet-headline">No GPU. No setup. No dataset?<br><em>TuneSalon AI can handle all.</em></h1>
+
+  <div class="meet-cards">
+    <div class="meet-card">
+      <div class="meet-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Open Browser</h3>
+      <p>Works on any computer/OS.<br>No install needed.</p>
+    </div>
+    <div class="meet-card">
+      <div class="meet-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3>Cloud GPU</h3>
+      <p>A100 (80GB) or H200 (141GB) supported.<br>You don't need hardware.</p>
+    </div>
+    <div class="meet-card">
+      <div class="meet-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M10 14l2 2 4-4"/></svg>
+      </div>
+      <h3>Data Generation</h3>
+      <p>Generate dataset from a description.<br>Or extract from your documents.</p>
+    </div>
+  </div>
+
+  <p class="meet-tagline"><strong>Your data, your model, your choice.</strong></p>
+</div>
+
+<!-- SLIDE 12: Workflow Step 1 — Dataset Generator -->
+<div class="slide slide-workflow" id="slide-12">
+  <div class="workflow-header">
+    <div class="workflow-badge">Step 1</div>
+    <h2 class="workflow-title">Generate your dataset.</h2>
+  </div>
+
+  <div class="workflow-layout">
+    <div class="workflow-img-wrap">
+      <img src="dataset screenshot.png" alt="Dataset Generator UI">
+    </div>
+    <div class="workflow-points">
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div>
+          <h3>Describe what you want</h3>
+          <p>Tell the AI what you want to build</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div>
+          <h3>Upload reference docs</h3>
+          <p>PDF, Word, or text files for context</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div>
+          <h3>AI generates examples</h3>
+          <p>1 to 2,000 training examples, automatically created</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h3>Built-in quality check</h3>
+          <p>Review and refine before training starts</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 13: Workflow Step 2 — Train -->
+<div class="slide slide-workflow" id="slide-13">
+  <div class="workflow-header">
+    <div class="workflow-badge">Step 2</div>
+    <h2 class="workflow-title">Train on cloud GPUs.</h2>
+  </div>
+
+  <div class="workflow-layout">
+    <div class="workflow-img-wrap">
+      <img src="Train screenshot.png" alt="Train Page UI">
+    </div>
+    <div class="workflow-points">
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></div>
+        <div>
+          <h3>Pick a base model</h3>
+          <p>11 curated open-source models from 4B to 35B</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div>
+          <h3>Upload your dataset</h3>
+          <p>Use the dataset you generated</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="#c0a080" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <div>
+          <h3>One-click training</h3>
+          <p>Smart defaults handle the technical details</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div>
+          <h3>Export &amp; own it</h3>
+          <p>Download as .adapter or GGUF</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: Workflow Step 3 — Chat -->
+<div class="slide slide-workflow" id="slide-14">
+  <div class="workflow-header">
+    <div class="workflow-badge">Step 3</div>
+    <h2 class="workflow-title">Chat with your AI.</h2>
+  </div>
+
+  <div class="workflow-layout">
+    <div class="workflow-img-wrap">
+      <img src="Chat screenshot.png" alt="Chat Page UI">
+    </div>
+    <div class="workflow-points">
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <h3>Instant conversation</h3>
+          <p>Chat with your custom AI right away</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div>
+          <h3>Upload documents</h3>
+          <p>Ask questions about your PDFs, docs, and text files</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div>
+          <h3>Stack multiple adapters</h3>
+          <p>Combine different skills on one model</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div>
+          <h3>Export chat history</h3>
+          <p>Save conversations as TXT, PDF, or JSONL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 15: Desktop App -->
+<div class="slide slide-workflow" id="slide-15">
+  <div class="workflow-header">
+    <div class="workflow-badge">Desktop</div>
+    <h2 class="workflow-title">Run it locally.</h2>
+  </div>
+
+  <div class="workflow-layout">
+    <div class="workflow-img-wrap">
+      <img src="desktop app screenshot.png" alt="TuneSalon Desktop App">
+    </div>
+    <div class="workflow-points">
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div>
+          <h3>100% offline</h3>
+          <p>Train and chat on your own computer. Nothing leaves your machine.</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+        <div>
+          <h3>One installer, no setup</h3>
+          <p>Bundles everything. No Python, no CUDA, no terminal.</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <div>
+          <h3>Cloud to local</h3>
+          <p>Export GGUF from the cloud, run locally. Same model, full control.</p>
+        </div>
+      </div>
+      <div class="workflow-point">
+        <div class="workflow-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div>
+          <h3>Auto-detects your GPU</h3>
+          <p>Shows which models your hardware can run.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16: What We're Looking For -->
+<div class="slide slide-ask" id="slide-16">
+  <h1 class="ask-headline">How you <em>can help.</em></h1>
+
+  <div class="ask-cards">
+    <div class="ask-card">
+      <div class="ask-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h3>Advisory</h3>
+      <p>Technical, marketing, or business guidance to scale</p>
+    </div>
+    <div class="ask-card">
+      <div class="ask-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>Exposure</h3>
+      <p>Try it. Give feedback.</p>
+    </div>
+    <div class="ask-card">
+      <div class="ask-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c0a080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h3>Investment</h3>
+      <p>A partner to grow with</p>
+    </div>
+  </div>
+
+  <p class="ask-footer"><strong>Custom AI, made simple.</strong> This is just getting started.</p>
+</div>
+
+<!-- SLIDE 17: Closer -->
+<div class="slide slide-closer" id="slide-17">
+  <div class="closer-left">
+  <img src="logo.png" alt="TuneSalon AI" class="closer-logo">
+  <h1 class="closer-headline">Build an AI <span class="accent">you own.</span></h1>
+
+  <div class="closer-qr-row">
+    <div class="closer-qr-wrap">
+      <svg viewBox="0 0 41 41" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><path d="M0,0H1V1H0zM1,0H2V1H1zM2,0H3V1H2zM3,0H4V1H3zM4,0H5V1H4zM5,0H6V1H5zM6,0H7V1H6zM8,0H9V1H8zM9,0H10V1H9zM12,0H13V1H12zM13,0H14V1H13zM14,0H15V1H14zM19,0H20V1H19zM20,0H21V1H20zM22,0H23V1H22zM23,0H24V1H23zM28,0H29V1H28zM29,0H30V1H29zM32,0H33V1H32zM34,0H35V1H34zM35,0H36V1H35zM36,0H37V1H36zM37,0H38V1H37zM38,0H39V1H38zM39,0H40V1H39zM40,0H41V1H40zM0,1H1V2H0zM6,1H7V2H6zM8,1H9V2H8zM12,1H13V2H12zM13,1H14V2H13zM14,1H15V2H14zM17,1H18V2H17zM21,1H22V2H21zM22,1H23V2H22zM23,1H24V2H23zM24,1H25V2H24zM26,1H27V2H26zM30,1H31V2H30zM34,1H35V2H34zM40,1H41V2H40zM0,2H1V3H0zM2,2H3V3H2zM3,2H4V3H3zM4,2H5V3H4zM6,2H7V3H6zM10,2H11V3H10zM12,2H13V3H12zM13,2H14V3H13zM18,2H19V3H18zM19,2H20V3H19zM20,2H21V3H20zM21,2H22V3H21zM22,2H23V3H22zM24,2H25V3H24zM25,2H26V3H25zM26,2H27V3H26zM28,2H29V3H28zM29,2H30V3H29zM31,2H32V3H31zM32,2H33V3H32zM34,2H35V3H34zM36,2H37V3H36zM37,2H38V3H37zM38,2H39V3H38zM40,2H41V3H40zM0,3H1V4H0zM2,3H3V4H2zM3,3H4V4H3zM4,3H5V4H4zM6,3H7V4H6zM8,3H9V4H8zM9,3H10V4H9zM11,3H12V4H11zM15,3H16V4H15zM18,3H19V4H18zM20,3H21V4H20zM21,3H22V4H21zM22,3H23V4H22zM23,3H24V4H23zM27,3H28V4H27zM28,3H29V4H28zM31,3H32V4H31zM32,3H33V4H32zM34,3H35V4H34zM36,3H37V4H36zM37,3H38V4H37zM38,3H39V4H38zM40,3H41V4H40zM0,4H1V5H0zM2,4H3V5H2zM3,4H4V5H3zM4,4H5V5H4zM6,4H7V5H6zM10,4H11V5H10zM11,4H12V5H11zM12,4H13V5H12zM13,4H14V5H13zM18,4H19V5H18zM19,4H20V5H19zM21,4H22V5H21zM23,4H24V5H23zM24,4H25V5H24zM27,4H28V5H27zM28,4H29V5H28zM29,4H30V5H29zM31,4H32V5H31zM32,4H33V5H32zM34,4H35V5H34zM36,4H37V5H36zM37,4H38V5H37zM38,4H39V5H38zM40,4H41V5H40zM0,5H1V6H0zM6,5H7V6H6zM9,5H10V6H9zM10,5H11V6H10zM14,5H15V6H14zM15,5H16V6H15zM17,5H18V6H17zM18,5H19V6H18zM19,5H20V6H19zM20,5H21V6H20zM22,5H23V6H22zM24,5H25V6H24zM25,5H26V6H25zM30,5H31V6H30zM31,5H32V6H31zM32,5H33V6H32zM34,5H35V6H34zM40,5H41V6H40zM0,6H1V7H0zM1,6H2V7H1zM2,6H3V7H2zM3,6H4V7H3zM4,6H5V7H4zM5,6H6V7H5zM6,6H7V7H6zM8,6H9V7H8zM10,6H11V7H10zM12,6H13V7H12zM14,6H15V7H14zM16,6H17V7H16zM18,6H19V7H18zM20,6H21V7H20zM22,6H23V7H22zM24,6H25V7H24zM26,6H27V7H26zM28,6H29V7H28zM30,6H31V7H30zM32,6H33V7H32zM34,6H35V7H34zM35,6H36V7H35zM36,6H37V7H36zM37,6H38V7H37zM38,6H39V7H38zM39,6H40V7H39zM40,6H41V7H40zM8,7H9V8H8zM9,7H10V8H9zM10,7H11V8H10zM11,7H12V8H11zM12,7H13V8H12zM13,7H14V8H13zM14,7H15V8H14zM15,7H16V8H15zM16,7H17V8H16zM17,7H18V8H17zM18,7H19V8H18zM20,7H21V8H20zM22,7H23V8H22zM23,7H24V8H23zM24,7H25V8H24zM28,7H29V8H28zM29,7H30V8H29zM0,8H1V9H0zM2,8H3V9H2zM3,8H4V9H3zM5,8H6V9H5zM6,8H7V9H6zM7,8H8V9H7zM9,8H10V9H9zM10,8H11V9H10zM12,8H13V9H12zM13,8H14V9H13zM14,8H15V9H14zM16,8H17V9H16zM17,8H18V9H17zM21,8H22V9H21zM22,8H23V9H22zM23,8H24V9H23zM26,8H27V9H26zM28,8H29V9H28zM29,8H30V9H29zM30,8H31V9H30zM31,8H32V9H31zM32,8H33V9H32zM34,8H35V9H34zM37,8H38V9H37zM39,8H40V9H39zM40,8H41V9H40zM3,9H4V10H3zM9,9H10V10H9zM10,9H11V10H10zM11,9H12V10H11zM12,9H13V10H12zM13,9H14V10H13zM14,9H15V10H14zM15,9H16V10H15zM19,9H20V10H19zM23,9H24V10H23zM28,9H29V10H28zM29,9H30V10H29zM31,9H32V10H31zM32,9H33V10H32zM33,9H34V10H33zM34,9H35V10H34zM36,9H37V10H36zM38,9H39V10H38zM40,9H41V10H40zM3,10H4V11H3zM4,10H5V11H4zM6,10H7V11H6zM7,10H8V11H7zM11,10H12V11H11zM14,10H15V11H14zM15,10H16V11H15zM16,10H17V11H16zM17,10H18V11H17zM18,10H19V11H18zM21,10H22V11H21zM22,10H23V11H22zM23,10H24V11H23zM24,10H25V11H24zM25,10H26V11H25zM26,10H27V11H26zM28,10H29V11H28zM29,10H30V11H29zM30,10H31V11H30zM35,10H36V11H35zM38,10H39V11H38zM39,10H40V11H39zM0,11H1V12H0zM1,11H2V12H1zM4,11H5V12H4zM5,11H6V12H5zM9,11H10V12H9zM13,11H14V12H13zM14,11H15V12H14zM15,11H16V12H15zM18,11H19V12H18zM19,11H20V12H19zM20,11H21V12H20zM25,11H26V12H25zM27,11H28V12H27zM28,11H29V12H28zM30,11H31V12H30zM32,11H33V12H32zM35,11H36V12H35zM40,11H41V12H40zM0,12H1V13H0zM2,12H3V13H2zM3,12H4V13H3zM5,12H6V13H5zM6,12H7V13H6zM7,12H8V13H7zM8,12H9V13H8zM9,12H10V13H9zM14,12H15V13H14zM15,12H16V13H15zM16,12H17V13H16zM17,12H18V13H17zM19,12H20V13H19zM22,12H23V13H22zM25,12H26V13H25zM27,12H28V13H27zM29,12H30V13H29zM31,12H32V13H31zM32,12H33V13H32zM33,12H34V13H33zM35,12H36V13H35zM37,12H38V13H37zM38,12H39V13H38zM39,12H40V13H39zM2,13H3V14H2zM5,13H6V14H5zM8,13H9V14H8zM9,13H10V14H9zM11,13H12V14H11zM12,13H13V14H12zM15,13H16V14H15zM16,13H17V14H16zM23,13H24V14H23zM26,13H27V14H26zM28,13H29V14H28zM32,13H33V14H32zM33,13H34V14H33zM34,13H35V14H34zM37,13H38V14H37zM39,13H40V14H39zM40,13H41V14H40zM3,14H4V15H3zM5,14H6V15H5zM6,14H7V15H6zM8,14H9V15H8zM9,14H10V15H9zM10,14H11V15H10zM12,14H13V15H12zM14,14H15V15H14zM21,14H22V15H21zM22,14H23V15H22zM24,14H25V15H24zM25,14H26V15H25zM27,14H28V15H27zM28,14H29V15H28zM29,14H30V15H29zM30,14H31V15H30zM31,14H32V15H31zM32,14H33V15H32zM34,14H35V15H34zM35,14H36V15H35zM36,14H37V15H36zM39,14H40V15H39zM40,14H41V15H40zM3,15H4V16H3zM4,15H5V16H4zM8,15H9V16H8zM10,15H11V16H10zM11,15H12V16H11zM14,15H15V16H14zM15,15H16V16H15zM16,15H17V16H16zM19,15H20V16H19zM20,15H21V16H20zM21,15H22V16H21zM22,15H23V16H22zM24,15H25V16H24zM26,15H27V16H26zM28,15H29V16H28zM34,15H35V16H34zM35,15H36V16H35zM37,15H38V16H37zM39,15H40V16H39zM0,16H1V17H0zM2,16H3V17H2zM5,16H6V17H5zM6,16H7V17H6zM8,16H9V17H8zM9,16H10V17H9zM10,16H11V17H10zM11,16H12V17H11zM12,16H13V17H12zM17,16H18V17H17zM18,16H19V17H18zM19,16H20V17H19zM20,16H21V17H20zM21,16H22V17H21zM22,16H23V17H22zM23,16H24V17H23zM24,16H25V17H24zM25,16H26V17H25zM27,16H28V17H27zM28,16H29V17H28zM30,16H31V17H30zM32,16H33V17H32zM36,16H37V17H36zM37,16H38V17H37zM38,16H39V17H38zM1,17H2V18H1zM2,17H3V18H2zM4,17H5V18H4zM8,17H9V18H8zM9,17H10V18H9zM13,17H14V18H13zM16,17H17V18H16zM17,17H18V18H17zM18,17H19V18H18zM20,17H21V18H20zM23,17H24V18H23zM27,17H28V18H27zM32,17H33V18H32zM33,17H34V18H33zM35,17H36V18H35zM37,17H38V18H37zM0,18H1V19H0zM4,18H5V19H4zM6,18H7V19H6zM8,18H9V19H8zM9,18H10V19H9zM11,18H12V19H11zM12,18H13V19H12zM13,18H14V19H13zM16,18H17V19H16zM17,18H18V19H17zM21,18H22V19H21zM24,18H25V19H24zM25,18H26V19H25zM26,18H27V19H26zM27,18H28V19H27zM28,18H29V19H28zM30,18H31V19H30zM36,18H37V19H36zM38,18H39V19H38zM0,19H1V20H0zM2,19H3V20H2zM3,19H4V20H3zM4,19H5V20H4zM5,19H6V20H5zM7,19H8V20H7zM13,19H14V20H13zM15,19H16V20H15zM16,19H17V20H16zM19,19H20V20H19zM22,19H23V20H22zM24,19H25V20H24zM25,19H26V20H25zM26,19H27V20H26zM28,19H29V20H28zM29,19H30V20H29zM30,19H31V20H30zM33,19H34V20H33zM35,19H36V20H35zM37,19H38V20H37zM38,19H39V20H38zM0,20H1V21H0zM3,20H4V21H3zM4,20H5V21H4zM5,20H6V21H5zM6,20H7V21H6zM10,20H11V21H10zM11,20H12V21H11zM12,20H13V21H12zM14,20H15V21H14zM15,20H16V21H15zM18,20H19V21H18zM22,20H23V21H22zM23,20H24V21H23zM25,20H26V21H25zM26,20H27V21H26zM27,20H28V21H27zM28,20H29V21H28zM31,20H32V21H31zM33,20H34V21H33zM34,20H35V21H34zM35,20H36V21H35zM36,20H37V21H36zM37,20H38V21H37zM38,20H39V21H38zM39,20H40V21H39zM40,20H41V21H40zM0,21H1V22H0zM1,21H2V22H1zM2,21H3V22H2zM3,21H4V22H3zM5,21H6V22H5zM7,21H8V22H7zM8,21H9V22H8zM9,21H10V22H9zM10,21H11V22H10zM12,21H13V22H12zM15,21H16V22H15zM16,21H17V22H16zM17,21H18V22H17zM18,21H19V22H18zM19,21H20V22H19zM20,21H21V22H20zM22,21H23V22H22zM23,21H24V22H23zM25,21H26V22H25zM28,21H29V22H28zM31,21H32V22H31zM32,21H33V22H32zM34,21H35V22H34zM36,21H37V22H36zM39,21H40V22H39zM40,21H41V22H40zM0,22H1V23H0zM1,22H2V23H1zM2,22H3V23H2zM3,22H4V23H3zM4,22H5V23H4zM6,22H7V23H6zM7,22H8V23H7zM8,22H9V23H8zM12,22H13V23H12zM13,22H14V23H13zM14,22H15V23H14zM15,22H16V23H15zM16,22H17V23H16zM18,22H19V23H18zM20,22H21V23H20zM21,22H22V23H21zM22,22H23V23H22zM23,22H24V23H23zM28,22H29V23H28zM29,22H30V23H29zM30,22H31V23H30zM33,22H34V23H33zM35,22H36V23H35zM39,22H40V23H39zM0,23H1V24H0zM3,23H4V24H3zM5,23H6V24H5zM8,23H9V24H8zM9,23H10V24H9zM10,23H11V24H10zM11,23H12V24H11zM12,23H13V24H12zM15,23H16V24H15zM18,23H19V24H18zM19,23H20V24H19zM20,23H21V24H20zM22,23H23V24H22zM24,23H25V24H24zM25,23H26V24H25zM28,23H29V24H28zM30,23H31V24H30zM37,23H38V24H37zM3,24H4V25H3zM5,24H6V25H5zM6,24H7V25H6zM9,24H10V25H9zM10,24H11V25H10zM17,24H18V25H17zM22,24H23V25H22zM24,24H25V25H24zM25,24H26V25H25zM26,24H27V25H26zM28,24H29V25H28zM29,24H30V25H29zM35,24H36V25H35zM37,24H38V25H37zM38,24H39V25H38zM5,25H6V26H5zM9,25H10V26H9zM11,25H12V26H11zM13,25H14V26H13zM16,25H17V26H16zM18,25H19V26H18zM19,25H20V26H19zM21,25H22V26H21zM24,25H25V26H24zM26,25H27V26H26zM27,25H28V26H27zM28,25H29V26H28zM29,25H30V26H29zM31,25H32V26H31zM32,25H33V26H32zM33,25H34V26H33zM34,25H35V26H34zM37,25H38V26H37zM38,25H39V26H38zM39,25H40V26H39zM40,25H41V26H40zM1,26H2V27H1zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM6,26H7V27H6zM8,26H9V27H8zM9,26H10V27H9zM11,26H12V27H11zM15,26H16V27H15zM16,26H17V27H16zM18,26H19V27H18zM19,26H20V27H19zM20,26H21V27H20zM26,26H27V27H26zM29,26H30V27H29zM30,26H31V27H30zM31,26H32V27H31zM32,26H33V27H32zM33,26H34V27H33zM34,26H35V27H34zM36,26H37V27H36zM37,26H38V27H37zM39,26H40V27H39zM40,26H41V27H40zM10,27H11V28H10zM12,27H13V28H12zM14,27H15V28H14zM15,27H16V28H15zM19,27H20V28H19zM20,27H21V28H20zM21,27H22V28H21zM22,27H23V28H22zM23,27H24V28H23zM27,27H28V28H27zM28,27H29V28H28zM30,27H31V28H30zM31,27H32V28H31zM32,27H33V28H32zM33,27H34V28H33zM34,27H35V28H34zM35,27H36V28H35zM37,27H38V28H37zM3,28H4V29H3zM4,28H5V29H4zM6,28H7V29H6zM9,28H10V29H9zM12,28H13V29H12zM13,28H14V29H13zM14,28H15V29H14zM16,28H17V29H16zM19,28H20V29H19zM21,28H22V29H21zM22,28H23V29H22zM25,28H26V29H25zM28,28H29V29H28zM30,28H31V29H30zM31,28H32V29H31zM32,28H33V29H32zM35,28H36V29H35zM36,28H37V29H36zM37,28H38V29H37zM2,29H3V30H2zM3,29H4V30H3zM5,29H6V30H5zM7,29H8V30H7zM9,29H10V30H9zM13,29H14V30H13zM16,29H17V30H16zM17,29H18V30H17zM18,29H19V30H18zM19,29H20V30H19zM21,29H22V30H21zM22,29H23V30H22zM24,29H25V30H24zM26,29H27V30H26zM28,29H29V30H28zM31,29H32V30H31zM32,29H33V30H32zM34,29H35V30H34zM35,29H36V30H35zM38,29H39V30H38zM39,29H40V30H39zM0,30H1V31H0zM5,30H6V31H5zM6,30H7V31H6zM12,30H13V31H12zM13,30H14V31H13zM15,30H16V31H15zM16,30H17V31H16zM17,30H18V31H17zM20,30H21V31H20zM21,30H22V31H21zM23,30H24V31H23zM24,30H25V31H24zM27,30H28V31H27zM28,30H29V31H28zM29,30H30V31H29zM30,30H31V31H30zM31,30H32V31H31zM33,30H34V31H33zM34,30H35V31H34zM35,30H36V31H35zM37,30H38V31H37zM38,30H39V31H38zM2,31H3V32H2zM3,31H4V32H3zM4,31H5V32H4zM5,31H6V32H5zM7,31H8V32H7zM10,31H11V32H10zM12,31H13V32H12zM14,31H15V32H14zM15,31H16V32H15zM16,31H17V32H16zM17,31H18V32H17zM18,31H19V32H18zM20,31H21V32H20zM22,31H23V32H22zM24,31H25V32H24zM29,31H30V32H29zM30,31H31V32H30zM31,31H32V32H31zM34,31H35V32H34zM35,31H36V32H35zM37,31H38V32H37zM38,31H39V32H38zM39,31H40V32H39zM1,32H2V33H1zM3,32H4V33H3zM4,32H5V33H4zM6,32H7V33H6zM8,32H9V33H8zM13,32H14V33H13zM14,32H15V33H14zM16,32H17V33H16zM17,32H18V33H17zM18,32H19V33H18zM19,32H20V33H19zM21,32H22V33H21zM23,32H24V33H23zM26,32H27V33H26zM28,32H29V33H28zM29,32H30V33H29zM30,32H31V33H30zM32,32H33V33H32zM33,32H34V33H33zM34,32H35V33H34zM35,32H36V33H35zM36,32H37V33H36zM38,32H39V33H38zM39,32H40V33H39zM8,33H9V34H8zM9,33H10V34H9zM12,33H13V34H12zM13,33H14V34H13zM14,33H15V34H14zM16,33H17V34H16zM18,33H19V34H18zM19,33H20V34H19zM20,33H21V34H20zM23,33H24V34H23zM28,33H29V34H28zM29,33H30V34H29zM30,33H31V34H30zM31,33H32V34H31zM32,33H33V34H32zM36,33H37V34H36zM38,33H39V34H38zM40,33H41V34H40zM0,34H1V35H0zM1,34H2V35H1zM2,34H3V35H2zM3,34H4V35H3zM4,34H5V35H4zM5,34H6V35H5zM6,34H7V35H6zM8,34H9V35H8zM9,34H10V35H9zM10,34H11V35H10zM12,34H13V35H12zM14,34H15V35H14zM16,34H17V35H16zM17,34H18V35H17zM20,34H21V35H20zM21,34H22V35H21zM22,34H23V35H22zM23,34H24V35H23zM24,34H25V35H24zM26,34H27V35H26zM28,34H29V35H28zM30,34H31V35H30zM31,34H32V35H31zM32,34H33V35H32zM34,34H35V35H34zM36,34H37V35H36zM37,34H38V35H37zM38,34H39V35H38zM39,34H40V35H39zM0,35H1V36H0zM6,35H7V36H6zM8,35H9V36H8zM10,35H11V36H10zM13,35H14V36H13zM14,35H15V36H14zM15,35H16V36H15zM18,35H19V36H18zM19,35H20V36H19zM20,35H21V36H20zM21,35H22V36H21zM22,35H23V36H22zM23,35H24V36H23zM24,35H25V36H24zM25,35H26V36H25zM26,35H27V36H26zM28,35H29V36H28zM29,35H30V36H29zM32,35H33V36H32zM36,35H37V36H36zM39,35H40V36H39zM40,35H41V36H40zM0,36H1V37H0zM2,36H3V37H2zM3,36H4V37H3zM4,36H5V37H4zM6,36H7V37H6zM10,36H11V37H10zM14,36H15V37H14zM18,36H19V37H18zM21,36H22V37H21zM22,36H23V37H22zM27,36H28V37H27zM28,36H29V37H28zM32,36H33V37H32zM33,36H34V37H33zM34,36H35V37H34zM35,36H36V37H35zM36,36H37V37H36zM38,36H39V37H38zM0,37H1V38H0zM2,37H3V38H2zM3,37H4V38H3zM4,37H5V38H4zM6,37H7V38H6zM8,37H9V38H8zM9,37H10V38H9zM10,37H11V38H10zM12,37H13V38H12zM13,37H14V38H13zM16,37H17V38H16zM17,37H18V38H17zM18,37H19V38H18zM19,37H20V38H19zM24,37H25V38H24zM25,37H26V38H25zM27,37H28V38H27zM28,37H29V38H28zM31,37H32V38H31zM32,37H33V38H32zM36,37H38V38H36zM38,37H39V38H38zM39,37H40V38H39zM0,38H1V39H0zM2,38H3V39H2zM3,38H4V39H3zM4,38H5V39H4zM6,38H7V39H6zM8,38H9V39H8zM9,38H10V39H9zM10,38H11V39H10zM13,38H14V39H13zM14,38H15V39H14zM17,38H18V39H17zM19,38H20V39H19zM20,38H21V39H20zM21,38H22V39H21zM22,38H23V39H22zM24,38H25V39H24zM26,38H27V39H26zM28,38H29V39H28zM29,38H30V39H29zM30,38H31V39H30zM35,38H36V39H35zM37,38H38V39H37zM38,38H39V39H38zM39,38H40V39H39zM40,38H41V39H40zM0,39H1V40H0zM6,39H7V40H6zM9,39H10V40H9zM11,39H12V40H11zM13,39H14V40H13zM14,39H15V40H14zM17,39H18V40H17zM18,39H19V40H18zM20,39H21V40H20zM21,39H22V40H21zM22,39H23V40H22zM26,39H27V40H26zM27,39H28V40H27zM28,39H29V40H28zM30,39H31V40H30zM32,39H33V40H32zM33,39H34V40H33zM36,39H37V40H36zM39,39H40V40H39zM0,40H1V41H0zM1,40H2V41H1zM2,40H3V41H2zM3,40H4V41H3zM4,40H5V41H4zM5,40H6V41H5zM6,40H7V41H6zM8,40H9V41H8zM11,40H12V41H11zM20,40H21V41H20zM21,40H22V41H21zM22,40H23V41H22zM23,40H24V41H23zM25,40H26V41H25zM27,40H28V41H27zM30,40H31V41H30zM31,40H32V41H31zM32,40H33V41H32zM34,40H35V41H34zM37,40H38V41H37zM39,40H40V41H39z" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg>
+    </div>
+    <div class="closer-qr-text">
+      <div class="closer-url">tunesalonai.com</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="closer-right">
+    <video class="closer-video" src="Himeko Video.mp4" controls preload="metadata"></video>
+  </div>
+</div>
+
+<!-- Slide Counter -->
+<div class="slide-counter">
+  <span id="current-slide">1</span> / <span id="total-slides">17</span>
+</div>
+<div class="nav-hint">&#8592; &#8594; arrow keys to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const currentEl = document.getElementById('current-slide');
+  const totalEl = document.getElementById('total-slides');
+  let current = 0;
+  totalEl.textContent = slides.length;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    currentEl.textContent = current + 1;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(current - 1); }
+    else if (e.key === 'Home') { showSlide(0); }
+    else if (e.key === 'End') { showSlide(slides.length - 1); }
+  });
+
+  setTimeout(() => {
+    const hint = document.querySelector('.nav-hint');
+    hint.style.transition = 'opacity 1s';
+    hint.style.opacity = '0';
+  }, 5000);
+</script>
+
+</body>
+</html>
